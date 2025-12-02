@@ -14,6 +14,7 @@ namespace topit {
     virtual ~IDraw() = default;
    };
   struct Dot: IDraw {
+    explicit Dot(p_t dd);
     p_t begin() const override;
     p_t next(p_t prev) const override;
     p_t d;
@@ -21,9 +22,23 @@ namespace topit {
 }
 int main() {
   using namespace topit; 
-  p_t a{1, 1}, b{0, 1};
-  std::cout << (a == b) << "\n";
+  IDraw* shp[3] = {};
+  try {	
+    shp[0] = new Dot({0, 0});
+    shp[1] = new Dot({2,3})
+  } catch (...) {}
+  std::cerr << "Error!\n";
+  err = 1;
+  }
+  delete shp[0];
+  delete shp[1];
+  return err;
 }
+topit::Dot::Dot(p_t dd):
+  IDraw()
+  d{dd}
+{}
+
 topit::p_t topit::Dot::begin() const {
   return d;
 }
